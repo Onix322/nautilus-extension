@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/alex/projects/nautilus-extesions-loader/out/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
