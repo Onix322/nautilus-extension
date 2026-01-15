@@ -8,13 +8,19 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK4 REQUIRED gtk4)
 pkg_check_modules(NAUTILUS REQUIRED libnautilus-extension-4)
 
-add_library(nautilus_ext SHARED main.cpp)
+file(GLOB_RECURSE SOURCES 
+    "src/*.cpp" 
+    "src/*.c"
+    "main.cpp"
+)
+add_library(${PROJECT_NAME} SHARED ${SOURCES})
 
 target_include_directories(nautilus_ext PRIVATE
     ${GTK4_INCLUDE_DIRS}
     ${NAUTILUS_INCLUDE_DIRS}
-)
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+  )
 
-target_compile_options(nautilus_ext PRIVATE ${GTK4_CFLAGS_OTHER} ${NAUTILUS_CFLAGS_OTHER})
-target_link_libraries(nautilus_ext PRIVATE ${GTK4_LIBRARIES} ${NAUTILUS_LIBRARIES})
+target_compile_options(${PROJECT_NAME} PRIVATE ${GTK4_CFLAGS_OTHER} ${NAUTILUS_CFLAGS_OTHER})
+target_link_libraries(${PROJECT_NAME} PRIVATE ${GTK4_LIBRARIES} ${NAUTILUS_LIBRARIES})
 
